@@ -8,7 +8,7 @@ import type {
  * No backend is connected yet, so each fetcher returns an honest empty result.
  * Replace the bodies with real API / repository calls — UI stays unchanged.
  */
-const API_BASE = import.meta.env.VITE_ECOGUARDIAN_API as string | undefined;
+const API_BASE = import.meta.env['VITE_ECOGUARDIAN_API'] as string | undefined;
 
 async function get<T>(path: string, empty: T): Promise<T> {
   if (!API_BASE) return empty;
