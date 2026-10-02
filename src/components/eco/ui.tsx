@@ -52,7 +52,7 @@ const STATE_STYLE: Record<EpistemicState, string> = {
   observed: "border-signal-blue/40 text-signal-blue",
   discovered: "border-eco-mid/50 text-eco-mid",
   inferred: "border-warn/40 text-warn",
-  hypothesized: "border-dashed border-muted-foreground/50 text-muted-foreground",
+  hypothesized: "border-hypothesis/50 bg-hypothesis/10 text-hypothesis",
   validated: "border-eco/60 bg-eco/10 text-eco",
 };
 
@@ -75,14 +75,16 @@ export function EpistemicLegend() {
 }
 
 export function PrimaryButton({ children, to, onClick, disabled }: { children: ReactNode; to?: string; onClick?: () => void; disabled?: boolean }) {
-  const cls = "inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40";
+  const cls = "premium-glow inline-flex min-h-10 items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition duration-300 hover:-translate-y-0.5 hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-40";
   if (to) return <Link to={to} className={cls}>{children}</Link>;
   return <button className={cls} onClick={onClick} disabled={disabled}>{children}</button>;
 }
 
-export function GhostButton({ children, disabled, title }: { children: ReactNode; disabled?: boolean; title?: string }) {
+export function GhostButton({ children, disabled, title, to }: { children: ReactNode; disabled?: boolean; title?: string; to?: string }) {
+  const cls = "inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-border bg-card/50 px-4 py-2 text-sm text-foreground transition duration-300 hover:-translate-y-0.5 hover:border-signal-blue/50 hover:bg-accent disabled:cursor-not-allowed disabled:opacity-40";
+  if (to) return <Link to={to} className={cls}>{children}</Link>;
   return (
-    <button title={title} disabled={disabled} className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-sm text-foreground transition hover:bg-accent disabled:cursor-not-allowed disabled:opacity-40">
+    <button title={title} disabled={disabled} className={cls}>
       {children}
     </button>
   );
