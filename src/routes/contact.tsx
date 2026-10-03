@@ -18,7 +18,7 @@ function ContactPage() {
     setState("submitting");
     window.setTimeout(() => setState("unavailable"), 500);
   }
-  const field = "w-full rounded-md border border-input bg-background/55 px-3.5 py-3 text-sm text-foreground outline-none transition placeholder:text-subtle focus:border-signal-blue focus:ring-2 focus:ring-signal-blue/15";
+  const field = "w-full rounded-md border border-form-border bg-field-recessed px-3.5 py-3 text-sm text-foreground outline-none transition placeholder:text-subtle focus:border-signal-blue focus:ring-2 focus:ring-signal-blue/20";
   return (
     <div className="mx-auto max-w-6xl py-4 sm:py-8">
       <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
@@ -32,7 +32,7 @@ function ContactPage() {
             <div className="flex items-center gap-3"><Mail className="h-4 w-4 text-signal-blue" /> Data and research collaboration</div>
           </div>
         </section>
-        <form onSubmit={submit} className="glass rounded-xl p-5 sm:p-8">
+        <form onSubmit={submit} className="rounded-xl border border-form-border bg-form-panel p-5 shadow-[0_24px_70px_color-mix(in_oklab,var(--background)_45%,transparent)] backdrop-blur-xl sm:p-8">
           <div className="grid gap-5 sm:grid-cols-2">
             <label className="text-sm">Full Name<input required name="name" autoComplete="name" className={`${field} mt-2`} /></label>
             <label className="text-sm">Organization<input required name="organization" autoComplete="organization" className={`${field} mt-2`} /></label>

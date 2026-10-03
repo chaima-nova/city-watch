@@ -6,3 +6,6 @@
 - [x] Add `/contact` with a premium Book a Demo form and honest unavailable-delivery state.
 - [x] Link all Book a Demo actions and refine existing navigation states and mobile behavior.
 - [x] Verify desktop, tablet, mobile, contact-form states, metadata, and build health.
+- [ ] Add spring-driven 3D architecture layer interactions and idle floating motion.
+- [ ] Apply the slate sidebar, active navigation state, and recessed Contact form treatment.
+- [ ] Verify architecture interaction, route navigation, Contact focus state, and reduced motion.
