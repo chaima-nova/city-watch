@@ -39,6 +39,11 @@
   --color-subtle: var(--subtle);
   --color-warn: var(--warn);
   --color-panel: var(--panel);
+  --color-sidebar-panel: var(--sidebar-panel);
+  --color-sidebar-active: var(--sidebar-active);
+  --color-form-panel: var(--form-panel);
+  --color-form-border: var(--form-border);
+  --color-field-recessed: var(--field-recessed);
 }
 
 :root {
@@ -70,6 +75,11 @@
   --hypothesis: oklch(0.55 0.2 302);
   --subtle: oklch(0.5 0.035 248);
   --warn: oklch(0.82 0.14 80);
+  --sidebar-panel: #1e2c3d;
+  --sidebar-active: #2a3d54;
+  --form-panel: #223246cc;
+  --form-border: #344860;
+  --field-recessed: #0f1722;
 }
 
 @layer base {
@@ -118,6 +128,10 @@
 
 @utility premium-glow {
   box-shadow: 0 0 0 1px oklch(0.83 0.16 163 / 0.24), 0 0 26px oklch(0.83 0.16 163 / 0.18);
+}
+
+@utility architecture-glow {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--signal-blue) 82%, transparent), 0 0 30px color-mix(in oklab, var(--signal-blue) 32%, transparent), inset 0 1px color-mix(in oklab, white 12%, transparent);
 }
 
 @utility label-mono {

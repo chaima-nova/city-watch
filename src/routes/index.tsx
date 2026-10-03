@@ -1,10 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import {
   ArrowRight, Binoculars, Building2, Car, Database, Droplets, Eye, Factory,
   FileCheck2, GitBranch, Globe2, LandPlot, Layers3, Leaf, Network, Orbit,
   RadioTower, Satellite, Sparkles, TriangleAlert, Waves, Zap,
 } from "lucide-react";
 import { GhostButton, PrimaryButton, StateBadge } from "@/components/eco/ui";
+import { Button } from "@/components/ui/button";
 import { seo } from "@/lib/seo";
 import cityHero from "@/assets/ecoguardian-city-hero.jpg";
 import systemLayers from "@/assets/ecoguardian-system-layers.jpg";
@@ -33,6 +36,14 @@ const EPISTEMIC = [
   { state: "observed", detail: "Directly from data" }, { state: "discovered", detail: "Unusual patterns" },
   { state: "inferred", detail: "Possible links" }, { state: "hypothesized", detail: "Explanations" },
   { state: "validated", detail: "Human review" },
+] as const;
+
+const ARCHITECTURE_LAYERS = [
+  { title: "Foresight", detail: "Possible futures & scenarios", icon: Orbit },
+  { title: "Evidence", detail: "Context & validation", icon: FileCheck2 },
+  { title: "Discovery", detail: "Patterns & relationships", icon: Sparkles },
+  { title: "City Memory", detail: "Temporal urban memory", icon: Layers3 },
+  { title: "City Data", detail: "Multi-source, multi-domain", icon: Database },
 ] as const;
 
 function Overview() {
@@ -81,16 +92,10 @@ function Overview() {
 
       <section className="glass overflow-hidden rounded-xl">
         <div className="grid min-h-[500px] lg:grid-cols-[1.3fr_0.7fr]">
-          <div className="relative min-h-[390px] overflow-hidden border-b border-border lg:min-h-[500px] lg:border-b-0 lg:border-r">
+          <div className="relative min-h-[460px] overflow-hidden border-b border-border lg:min-h-[500px] lg:border-b-0 lg:border-r">
             <img src={systemLayers} alt="Conceptual layered city intelligence architecture" loading="lazy" width={1408} height={912} className="absolute inset-0 h-full w-full object-cover opacity-80" />
             <div className="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_oklab,var(--background)_86%,transparent),color-mix(in_oklab,var(--background)_10%,transparent)_58%,color-mix(in_oklab,var(--background)_68%,transparent))]" />
-            <div className="relative z-10 flex h-full flex-col justify-center gap-3 p-6 sm:p-9">
-              <ArchitectureLabel title="Foresight" detail="Possible futures & scenarios" icon={Orbit} />
-              <ArchitectureLabel title="Evidence" detail="Context & validation" icon={FileCheck2} />
-              <ArchitectureLabel title="Discovery" detail="Patterns & relationships" icon={Sparkles} />
-              <ArchitectureLabel title="City Memory" detail="Temporal urban memory" icon={Layers3} />
-              <ArchitectureLabel title="City Data" detail="Multi-source, multi-domain" icon={Database} />
-            </div>
+            <ArchitectureDiagram />
             <span className="label-mono absolute left-5 top-5 z-10 text-muted-foreground">City intelligence architecture</span>
           </div>
           <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-12">
@@ -153,6 +158,81 @@ function MapPin({ label, icon: Icon, className }: { label: string; icon: typeof 
   return <div className={`absolute animate-float-soft ${className}`}><div className="flex items-center gap-2 rounded-md border border-signal-blue/40 bg-background/65 px-3 py-2 text-xs text-foreground backdrop-blur"><Icon className="h-3.5 w-3.5 text-eco" />{label}</div><div className="mx-auto h-14 w-px bg-gradient-to-b from-signal-blue to-transparent" /><div className="mx-auto h-2 w-2 rounded-full bg-eco premium-glow" /></div>;
 }
 
-function ArchitectureLabel({ title, detail, icon: Icon }: { title: string; detail: string; icon: typeof Orbit }) {
-  return <div className="flex w-56 items-center gap-3 rounded-md border border-border bg-background/65 px-3 py-2 backdrop-blur transition hover:border-signal-blue/50"><Icon className="h-4 w-4 shrink-0 text-signal-blue" /><div><div className="text-xs font-medium">{title}</div><div className="mt-0.5 text-[9px] text-muted-foreground">{detail}</div></div><span className="ml-auto h-px w-8 bg-gradient-to-r from-signal-blue to-transparent" /></div>;
+function ArchitectureDiagram() {
+  const reduceMotion = useReducedMotion();
+  const [expanded, setExpanded] = useState(false);
+  const [activeLayer, setActiveLayer] = useState<number | null>(null);
+  const spring = { type: "spring" as const, stiffness: 200, damping: 20 };
+
+  return (
+    <div
+      className="relative z-10 grid min-h-[460px] grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] items-center gap-2 px-4 pb-6 pt-14 sm:gap-5 sm:px-8 lg:min-h-[500px]"
+      onMouseEnter={() => setExpanded(true)}
+      onMouseLeave={() => { setExpanded(false); setActiveLayer(null); }}
+    >
+      <nav aria-label="Architecture layers" className="relative z-20 flex flex-col gap-1.5">
+        {ARCHITECTURE_LAYERS.map(({ title, detail, icon: Icon }, index) => {
+          const selected = activeLayer === index;
+          return (
+            <Button
+              key={title}
+              type="button"
+              variant="ghost"
+              aria-pressed={selected}
+              onMouseEnter={() => setActiveLayer(index)}
+              onFocus={() => { setExpanded(true); setActiveLayer(index); }}
+              onBlur={() => { setExpanded(false); setActiveLayer(null); }}
+              className="h-auto min-w-0 justify-start gap-2 rounded-md border border-transparent px-2 py-2 text-left text-muted-foreground hover:border-signal-blue/35 hover:bg-background/55 hover:text-foreground sm:gap-3 sm:px-3"
+            >
+              <Icon className="h-4 w-4 shrink-0 text-signal-blue" />
+              <span className="min-w-0">
+                <span className="block truncate text-[11px] font-medium text-foreground sm:text-xs">{title}</span>
+                <span className="mt-0.5 hidden truncate text-[9px] font-normal text-muted-foreground sm:block">{detail}</span>
+              </span>
+            </Button>
+          );
+        })}
+      </nav>
+
+      <div className="relative h-72 min-w-0 [perspective:900px] sm:h-80" aria-label="Interactive 3D architecture stack">
+        <motion.div
+          className="absolute inset-0 [transform-style:preserve-3d]"
+          animate={reduceMotion ? { y: 0 } : { y: [4, -4, 4] }}
+          transition={reduceMotion ? { duration: 0 } : { duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <div className="absolute left-1/2 top-1/2 h-48 w-[82%] max-w-sm -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d] sm:h-56">
+            {ARCHITECTURE_LAYERS.map(({ title, icon: Icon }, index) => {
+              const selected = activeLayer === index;
+              const hasSelection = activeLayer !== null;
+              const spacing = expanded ? 35 : 23;
+              const offset = (index - 2) * spacing;
+              return (
+                <motion.div
+                  key={title}
+                  className="absolute inset-x-0 top-1/2 flex h-24 cursor-pointer items-center justify-between rounded-lg border border-signal-blue/35 bg-card/85 px-4 backdrop-blur-xl [transform-style:preserve-3d]"
+                  animate={{
+                    y: offset,
+                    z: expanded ? Math.abs(index - 2) * 8 : 0,
+                    rotateX: 57,
+                    rotateZ: -28,
+                    scale: selected ? 1.05 : 1,
+                    opacity: hasSelection && !selected ? 0.4 : 1,
+                  }}
+                  transition={spring}
+                  onMouseEnter={() => setActiveLayer(index)}
+                  onFocus={() => setActiveLayer(index)}
+                  tabIndex={0}
+                  aria-label={`${title} architecture layer`}
+                >
+                  <span className="flex items-center gap-2 text-xs font-medium text-foreground"><Icon className="h-4 w-4 text-signal-blue" />{title}</span>
+                  <span className="h-2 w-2 rounded-full bg-signal-blue shadow-[0_0_16px_var(--signal-blue)]" />
+                  {selected && <motion.span layoutId="architecture-outline" className="architecture-glow pointer-events-none absolute inset-0 rounded-lg border border-signal-blue" transition={spring} />}
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
 }

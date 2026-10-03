@@ -44,14 +44,14 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </header>
       <div className="flex flex-1">
-         <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-60 shrink-0 flex-col border-r border-border bg-background/35 px-3 py-6 backdrop-blur-lg md:flex">
+         <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-60 shrink-0 flex-col border-r border-form-border bg-sidebar-panel px-3 py-6 shadow-[12px_0_40px_color-mix(in_oklab,var(--background)_42%,transparent)] md:flex">
            <div className="label-mono px-3 pb-4 text-muted-foreground/70">City intelligence</div>
           <nav className="flex flex-col gap-0.5">
             {NAV.map(({ to, label, icon: Icon }) => {
               const active = to === "/" ? path === "/" : path.startsWith(to);
               return (
-                 <Link key={to} to={to} className={cn("group relative flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition duration-300", active ? "bg-accent text-foreground shadow-[inset_2px_0_var(--eco)]" : "text-muted-foreground hover:bg-accent/60 hover:text-foreground")}>
-                  <Icon className={cn("h-4 w-4", active && "text-eco")} />
+                 <Link key={to} to={to} resetScroll className={cn("group relative flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition duration-300", active ? "bg-sidebar-active text-signal-blue shadow-[inset_2px_0_var(--signal-blue)]" : "text-muted-foreground hover:bg-sidebar-active/70 hover:text-foreground")}>
+                  <Icon className={cn("h-4 w-4", active && "text-signal-blue")} />
                   {label}
                 </Link>
               );
@@ -65,7 +65,7 @@ export function AppShell({ children }: { children: ReactNode }) {
            <nav aria-label="Mobile navigation" className="flex gap-1 overflow-x-auto border-b border-border bg-background/55 px-3 py-2 backdrop-blur md:hidden">
              <span className="grid h-8 w-8 shrink-0 place-items-center text-muted-foreground" title="Navigation"><Menu className="h-4 w-4" /></span>
             {NAV.map(({ to, label }) => (
-              <Link key={to} to={to} className="whitespace-nowrap rounded px-2.5 py-1 text-xs text-muted-foreground [&.active]:bg-accent [&.active]:text-foreground">{label}</Link>
+              <Link key={to} to={to} resetScroll className="whitespace-nowrap rounded px-2.5 py-1 text-xs text-muted-foreground [&.active]:bg-sidebar-active [&.active]:text-signal-blue">{label}</Link>
             ))}
           </nav>
            <div className={cn("mx-auto px-4 py-5 sm:px-6 sm:py-7 lg:px-8", path === "/" ? "max-w-[1640px]" : "max-w-[1400px]")}>{children}</div>

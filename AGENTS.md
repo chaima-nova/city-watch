@@ -13,3 +13,4 @@
 - All screens read data only through query options in `src/lib/data/api.ts` typed by `src/lib/data/types.ts`; never hard-code domain data in UI — keeps the backend swappable.
 - With no backend configured (`VITE_ECOGUARDIAN_API` unset) fetchers return empty results and screens show honest empty states — the product must never display invented data.
 - Demo requests use a dedicated `/contact` route with an explicit unavailable-delivery state until a real service is connected — prevents false submission claims.
+- Use Framer Motion for coordinated 3D architecture interactions and honor reduced-motion settings — keeps complex spatial motion accessible and consistent.
