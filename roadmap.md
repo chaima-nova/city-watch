@@ -9,3 +9,6 @@
 - [x] Add spring-driven 3D architecture layer interactions and idle floating motion.
 - [x] Apply the slate sidebar, active navigation state, and recessed Contact form treatment.
 - [x] Verify architecture interaction, route navigation, Contact focus state, and reduced motion.
+- [ ] Apply the frosted-glass desktop sidebar and requested active and hover states.
+- [ ] Add the uploaded supporter logos in an accessible, pausable infinite carousel beneath the hero.
+- [ ] Verify the sidebar, carousel, logo hover treatment, reduced motion, and responsive layout.
