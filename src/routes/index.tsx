@@ -13,6 +13,9 @@ import cityHero from "@/assets/ecoguardian-city-hero.jpg";
 import systemLayers from "@/assets/ecoguardian-system-layers.jpg";
 import capabilityVisuals from "@/assets/ecoguardian-capabilities.jpg";
 import cityBanner from "@/assets/ecoguardian-city-banner.jpg";
+import gcombLogo from "@/assets/gcomb-logo.png.asset.json";
+import techToTheRescueLogo from "@/assets/tech-to-the-rescue-logo.png.asset.json";
+import hackForEarthLogo from "@/assets/hack-for-earth-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => seo("City Intelligence & Discovery", "An experimental city intelligence system for understanding urban change through evidence, memory, and human validation."),
@@ -46,6 +49,12 @@ const ARCHITECTURE_LAYERS = [
   { title: "City Data", detail: "Multi-source, multi-domain", icon: Database },
 ] as const;
 
+const SUPPORTERS = [
+  { name: "Global Covenant of Mayors for Climate & Energy", src: gcombLogo.url, width: 250 },
+  { name: "Tech To The Rescue", src: techToTheRescueLogo.url, width: 210 },
+  { name: "Hack for Earth", src: hackForEarthLogo.url, width: 180 },
+] as const;
+
 function Overview() {
   return (
     <div className="space-y-5 pb-6">
@@ -77,6 +86,23 @@ function Overview() {
           <MapPin label="Infrastructure" icon={Building2} className="left-[74%] top-[22%]" />
           <MapPin label="Land Use" icon={LandPlot} className="left-[70%] top-[52%]" />
           <MapPin label="Environment" icon={Leaf} className="left-[84%] top-[39%]" />
+        </div>
+      </section>
+
+      <section aria-labelledby="supporters-title" className="overflow-hidden border-y border-border/70 py-6 sm:py-7">
+        <h2 id="supporters-title" className="text-center text-sm font-medium tracking-widest text-supporter-title">RECOGNIZED &amp; SUPPORTED BY</h2>
+        <div className="mt-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+          <div className="supporter-marquee flex w-max items-center">
+            {[false, true].map((duplicate) => (
+              <div key={String(duplicate)} aria-hidden={duplicate || undefined} className="flex shrink-0 items-center gap-16 px-8 sm:gap-24 sm:px-12 lg:gap-32 lg:px-16">
+                {SUPPORTERS.map((supporter) => (
+                  <div key={supporter.name} className="flex h-14 shrink-0 items-center bg-transparent">
+                    <img src={supporter.src} alt={duplicate ? "" : supporter.name} width={supporter.width} height={40} className="supporter-logo h-9 w-auto max-w-[250px] object-contain sm:h-10" />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -44,13 +44,13 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </header>
       <div className="flex flex-1">
-         <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-60 shrink-0 flex-col border-r border-form-border bg-sidebar-panel px-3 py-6 shadow-[12px_0_40px_color-mix(in_oklab,var(--background)_42%,transparent)] md:flex">
+          <aside className="sidebar-glass sticky top-16 hidden h-[calc(100vh-4rem)] w-60 shrink-0 flex-col px-3 py-6 shadow-[12px_0_40px_color-mix(in_oklab,var(--background)_28%,transparent)] md:flex">
            <div className="label-mono px-3 pb-4 text-muted-foreground/70">City intelligence</div>
           <nav className="flex flex-col gap-0.5">
             {NAV.map(({ to, label, icon: Icon }) => {
               const active = to === "/" ? path === "/" : path.startsWith(to);
               return (
-                 <Link key={to} to={to} resetScroll className={cn("group relative flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition duration-300", active ? "bg-sidebar-active text-signal-blue shadow-[inset_2px_0_var(--signal-blue)]" : "text-muted-foreground hover:bg-sidebar-active/70 hover:text-foreground")}>
+                  <Link key={to} to={to} resetScroll className={cn("group relative flex items-center gap-3 rounded-md border-l-[3px] px-3 py-2.5 text-sm transition duration-300", active ? "border-signal-blue bg-sidebar-active text-signal-blue" : "border-transparent text-sidebar-text hover:bg-[rgb(255_255_255/8%)] hover:text-foreground")}>
                   <Icon className={cn("h-4 w-4", active && "text-signal-blue")} />
                   {label}
                 </Link>
