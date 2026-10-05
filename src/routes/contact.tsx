@@ -3,6 +3,9 @@ import { useState, type FormEvent } from "react";
 import { ArrowRight, Building2, Mail, MapPin } from "lucide-react";
 import { PrimaryButton } from "@/components/eco/ui";
 import { seo } from "@/lib/seo";
+import { useServerFn } from "@tanstack/react-start";
+import { sendDemoRequest } from "@/lib/demo.functions";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/contact")({
   head: () => seo("Book a Demo", "Explore EcoGuardian with your city data, research goals, or urban systems challenge."),
@@ -12,11 +15,33 @@ export const Route = createFileRoute("/contact")({
 const INTERESTS = ["Infrastructure", "Mobility", "Environment", "Climate", "Land Use", "Energy", "Water", "Public Services", "Earth Observation", "City Data Integration", "Research Collaboration", "Other"];
 
 function ContactPage() {
-  const [state, setState] = useState<"idle" | "submitting" | "unavailable">("idle");
-  function submit(event: FormEvent<HTMLFormElement>) {
+  const [state, setState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [error, setError] = useState("");
+  const send = useServerFn(sendDemoRequest);
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (state === "submitting") return;
+    const form = event.currentTarget;
+    const fields = new FormData(form);
     setState("submitting");
-    window.setTimeout(() => setState("unavailable"), 500);
+    setError("");
+    try {
+      const result = await send({ data: {
+        name: String(fields.get("name") ?? ""), organization: String(fields.get("organization") ?? ""),
+        role: String(fields.get("role") ?? ""), email: String(fields.get("email") ?? ""),
+        region: String(fields.get("region") ?? ""), interest: String(fields.get("interest") ?? ""),
+        message: String(fields.get("message") ?? ""), requestId: crypto.randomUUID(),
+      } });
+      if (!result.ok) throw new Error(result.error ?? "Your request was not sent. Please try again.");
+      setState("success");
+      form.reset();
+      toast.success("Thank you! Your request has been sent successfully.");
+    } catch (failure) {
+      const message = failure instanceof Error ? failure.message : "Your request was not sent. Please try again.";
+      setError(message);
+      setState("error");
+      toast.error("Your request could not be sent.");
+    }
   }
   const field = "w-full rounded-md border border-form-border bg-field-recessed px-3.5 py-3 text-sm text-foreground outline-none transition placeholder:text-subtle focus:border-signal-blue focus:ring-2 focus:ring-signal-blue/20";
   return (
@@ -43,10 +68,11 @@ function ContactPage() {
             <label className="text-sm sm:col-span-2">Message<textarea required name="message" rows={6} className={`${field} mt-2 resize-y`} placeholder="Describe your data, research question, or city challenge." /></label>
           </div>
           <div className="mt-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <PrimaryButton disabled={state === "submitting"}>{state === "submitting" ? "Checking delivery…" : <>Request a Demo <ArrowRight className="h-4 w-4" /></>}</PrimaryButton>
-            <span className="max-w-sm text-xs leading-relaxed text-muted-foreground">No email service is connected to this research prototype.</span>
+            <PrimaryButton disabled={state === "submitting"}>{state === "submitting" ? "Sending request…" : <>Request a Demo <ArrowRight className="h-4 w-4" /></>}</PrimaryButton>
+            <span className="max-w-sm text-xs leading-relaxed text-muted-foreground">Your details are shared only to respond to your request.</span>
           </div>
-          {state === "unavailable" && <div role="alert" className="mt-5 rounded-md border border-warn/40 bg-warn/5 p-4 text-sm text-warn">Your request was not sent. Demo-request delivery is unavailable until an email service is connected.</div>}
+          {state === "success" && <div role="status" className="mt-5 rounded-md border border-eco/40 bg-eco/5 p-4 text-sm text-eco">Thank you! Your request has been sent successfully.</div>}
+          {state === "error" && <div role="alert" className="mt-5 break-words rounded-md border border-warn/40 bg-warn/5 p-4 text-sm text-warn">{error}</div>}
         </form>
       </div>
     </div>
