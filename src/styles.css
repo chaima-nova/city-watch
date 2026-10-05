@@ -141,6 +141,7 @@
 @utility sidebar-glass {
   background: var(--sidebar-panel);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-right: 1px solid rgb(255 255 255 / 12%);
 }
 

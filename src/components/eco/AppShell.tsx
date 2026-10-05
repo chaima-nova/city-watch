@@ -44,7 +44,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </header>
       <div className="flex flex-1">
-          <aside className="sidebar-glass sticky top-16 hidden h-[calc(100vh-4rem)] w-60 shrink-0 flex-col px-3 py-6 shadow-[12px_0_40px_color-mix(in_oklab,var(--background)_28%,transparent)] md:flex">
+          <aside className="sidebar-glass sticky top-16 hidden h-[calc(100vh-4rem)] w-60 shrink-0 flex-col px-3 py-6 backdrop-blur-lg shadow-[12px_0_40px_color-mix(in_oklab,var(--background)_28%,transparent)] md:flex">
            <div className="label-mono px-3 pb-4 text-muted-foreground/70">City intelligence</div>
           <nav className="flex flex-col gap-0.5">
             {NAV.map(({ to, label, icon: Icon }) => {
