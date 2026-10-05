@@ -12,3 +12,5 @@
 - [ ] Apply the frosted-glass desktop sidebar and requested active and hover states.
 - [ ] Add the uploaded supporter logos in an accessible, pausable infinite carousel beneath the hero.
 - [ ] Verify the sidebar, carousel, logo hover treatment, reduced motion, and responsive layout.
+- [ ] Verify and correct Contact page alignment so headings never overlap the sidebar.
+- [ ] Connect real demo-request email delivery and show confirmation only after a successful send (requires an actual recipient address and email service).
