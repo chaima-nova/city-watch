@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Replace header and footer logos with the complete transparent glass graphic, update the browser icon, and verify both placements.
+- [x] Replace header and footer logos with the complete transparent glass graphic, update the browser icon, and verify both placements.
 
 - [x] Match the supplied EcoGuardian reference on the Overview page without replacing existing product architecture.
 - [x] Apply the exact deep-navy glass palette, neon cyan/green accents, technical layering, and responsive behavior.
