@@ -1,7 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import type { ReactNode } from "react";
-import { Activity, Clock, Compass, Database, FileSearch, LayoutGrid, Menu, Radar, TriangleAlert } from "lucide-react";
+import { Clock, Compass, Database, FileSearch, LayoutGrid, Menu, Radar, TriangleAlert } from "lucide-react";
+import ecoGuardianLogo from "@/assets/ecoguardian-logo.png";
 import { configQuery } from "@/lib/data/api";
 import { cn } from "@/lib/utils";
 
@@ -24,9 +25,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen flex-col topo-bg">
       <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/80 px-4 backdrop-blur-xl sm:px-5">
         <Link to="/" className="flex items-center gap-3">
-          <div className="grid h-7 w-7 place-items-center rounded-md border border-eco-mid/50 bg-eco-deep/40">
-            <Activity className="h-3.5 w-3.5 text-eco" />
-          </div>
+          <img src={ecoGuardianLogo} alt="EcoGuardian AI logo" width={519} height={741} className="h-12 w-9 shrink-0 object-contain" />
           <div className="leading-tight">
             <div className="label-mono text-foreground">EcoGuardian AI</div>
             <div className="hidden text-[11px] text-muted-foreground sm:block">City Intelligence & Discovery</div>
