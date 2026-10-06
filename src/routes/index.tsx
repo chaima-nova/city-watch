@@ -3,13 +3,14 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import {
   ArrowRight, Binoculars, Building2, Car, Database, Droplets, Eye, Factory,
-  FileCheck2, GitBranch, Globe2, LandPlot, Layers3, Leaf, Network, Orbit,
+  FileCheck2, GitBranch, LandPlot, Layers3, Leaf, Network, Orbit,
   RadioTower, Satellite, Sparkles, TriangleAlert, Waves, Zap,
 } from "lucide-react";
 import { GhostButton, PrimaryButton, StateBadge } from "@/components/eco/ui";
 import { Button } from "@/components/ui/button";
 import { seo } from "@/lib/seo";
 import cityHero from "@/assets/ecoguardian-city-hero.jpg";
+import ecoGuardianLogo from "@/assets/ecoguardian-logo.png";
 import systemLayers from "@/assets/ecoguardian-system-layers.jpg";
 import capabilityVisuals from "@/assets/ecoguardian-capabilities.jpg";
 import cityBanner from "@/assets/ecoguardian-city-banner.jpg";
@@ -172,7 +173,7 @@ function Overview() {
       </section>
 
       <footer className="flex flex-col gap-5 border-t border-border px-1 pt-7 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-        <Link to="/" className="flex items-center gap-3 text-foreground"><Globe2 className="h-5 w-5 text-eco" /><span><strong className="font-medium">EcoGuardian AI</strong><span className="ml-2 text-muted-foreground">City Intelligence & Discovery</span></span></Link>
+        <Link to="/" className="flex items-center gap-3 text-foreground"><img src={ecoGuardianLogo} alt="EcoGuardian AI logo" width={519} height={741} className="h-10 w-7 shrink-0 object-contain" /><span><strong className="font-medium">EcoGuardian AI</strong><span className="ml-2 text-muted-foreground">City Intelligence & Discovery</span></span></Link>
         <div className="flex flex-wrap gap-x-4 gap-y-2"><Link to="/watch">City Watch</Link><Link to="/memory">City Memory</Link><Link to="/discoveries">Discoveries</Link><Link to="/evidence">Evidence</Link><Link to="/contact">Contact</Link></div>
         <span className="label-mono">Research prototype</span>
       </footer>

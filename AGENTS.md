@@ -15,3 +15,4 @@
 - Demo requests use a validated public server function with server-controlled recipient, plain-text fields, Resend gateway credentials, and provider acceptance before success — prevents secret exposure and false submission claims.
 - Use Framer Motion for coordinated 3D architecture interactions and honor reduced-motion settings — keeps complex spatial motion accessible and consistent.
 - Render supporter marks from project-managed assets in an accessible, reduced-motion-aware ticker — keeps partner branding consistent and lightweight.
+- Use the same transparent logo asset in header and footer, with a resized, padded public favicon derived from it — keeps brand artwork consistent without shipping a large browser icon.
